@@ -4,25 +4,39 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  Widget dias() {
+    return Container(
+        margin: EdgeInsets.only(top: 30.0),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text("D"),
+              Text("L"),
+              Text("M"),
+              Text("M"),
+              Text("J"),
+              Text("V"),
+              Text("S")
+            ]));
+  }
+
   Widget fila() {
-    return Row(
+    List<Widget> days = [];
+    List<Widget> weeks = [];
+    for(int i = 0; i<=30; i++){
+      days.add(Text(i.toString()));
+      if (i % 7 == 0){
+        weeks.add(Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: days));
+        days.clear();
+      }
+    }
+
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("D"),
-          SizedBox(width: 30),
-          Text("L"),
-          SizedBox(width: 30),
-          Text("M"),
-          SizedBox(width: 30),
-          Text("M"),
-          SizedBox(width: 30),
-          Text("J"),
-          SizedBox(width: 30),
-          Text("V"),
-          SizedBox(width: 30),
-          Text("S")
-        ]);
+        children: weeks
+    );
   }
 
   @override
@@ -38,27 +52,17 @@ class MyApp extends StatelessWidget {
         body: Container(
             color: Colors.white,
             child: Container(
-              margin: EdgeInsets.only(top: 50),
               child: Center(
                   child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                     Center(
                         child: Text("JUN",
                             style: TextStyle(
                                 fontSize: 30.0, fontWeight: FontWeight.w400))),
-                    SizedBox(height: 30),
-                    Center(child: fila()),
-                    SizedBox(height: 30),
-                    Center(child: fila()),
-                    SizedBox(height: 30),
-                    Center(child: fila()),
-                    SizedBox(height: 30),
-                    Center(child: fila()),
-                    SizedBox(height: 30),
-                    Center(child: fila()),
-                    SizedBox(height: 30),
-                    Center(child: fila())
+                    dias(),
+                        fila()
                   ])),
             )),
       ),
